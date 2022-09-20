@@ -1,14 +1,20 @@
 import { Start, DontWant, Help, Want } from "hears";
-import { Telegraf } from 'telegraf';
+import { Telegraf, Scenes, session } from 'telegraf';
 import { botToken } from "token";
 
-const bot = new Telegraf(botToken);
+const bot = new Telegraf<Scenes.SceneContext>(botToken);
+const helloScene = new Scenes.BaseScene<Scenes.SceneContext>("hello");
+const workScene = new Scenes.BaseScene<Scenes.SceneContext>("work");
+const stage = new Scenes.Stage<Scenes.SceneContext>([helloScene, workScene]);
+
+bot.use(session());
+bot.use(stage.middleware());
+bot.launch();
 
 bot.start(Start);
-bot.help(Help);
-bot.hears('Хочу', Want);
-bot.hears('Не хочу', DontWant);
-bot.launch();
+helloScene.help(Help);
+helloScene.hears('Хочу', Want);
+helloScene.hears('Не хочу', DontWant);
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
