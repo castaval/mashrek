@@ -8,7 +8,7 @@ export const Start = (ctx: any) => {
         {caption: "Привет\nЯ Mashrek!\nНажми на кнопочки!",
             ...Markup.keyboard([["Хочу", "Не хочу",]]).resize().oneTime()});
     ctx.scene.enter("hello");
-}
+};
 export const Help = (ctx : Context) => ctx.reply("'Хочу' - получить картинку");
 export const Want = (ctx: any) => {
     const item = items[Math.floor(Math.random()*items.length)]
@@ -18,3 +18,20 @@ export const Want = (ctx: any) => {
     ctx.scene.enter("work");
 };
 export const DontWant = (ctx: Context) => ctx.reply("Ну ладно (:\nЕсли захочешь, нажми на кнопочку 'Хочу' !");
+export const Introduction = (ctx: any) => {
+    ctx.reply("Выберите взаймодействие",
+        Markup.inlineKeyboard([
+            Markup.button.callback("Фото", "photo"),
+            Markup.button.callback("Музыка", "music"),
+            Markup.button.callback("Текст", "text"),
+        ]));
+};
+export const PhotoAction = (ctx: any) => {
+
+};
+export const MusicAction = (ctx: any) => {
+
+};
+export const TextAction = (ctx: any) => {
+
+};
